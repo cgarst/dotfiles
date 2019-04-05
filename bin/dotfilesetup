@@ -7,5 +7,11 @@ grep -qxF 'source ~/code/dotfiles/.ps1' ~/.profile || echo 'source ~/code/dotfil
 # Add helper scripts to PATH
 grep -qxF 'PATH="$PATH:~/code/dotfiles/bin/"' ~/.profile || echo 'PATH="$PATH:~/code/dotfiles/bin/"' >> ~/.profile
 
-# Symlink things
-ln -s ~/code/dotfiles/.vimrc ~/.vimrc
+# Install/update axim vimrc
+if [ -d "~/.vim_runtime" ]; then
+	git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
+else
+	cd ~/.vim_runtime
+	git pull
+fi
+sh ~/.vim_runtime/install_awesome_vimrc.sh
