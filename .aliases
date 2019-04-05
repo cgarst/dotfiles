@@ -2,7 +2,6 @@
 export PS1="\[\033[01;32m\]\u\[\033[01;34m\][\w]\[\033[00m\]$ "
 
 # better ls as ll - RHEL inspired
-
 alias ll='ls -lGa'
 
 # list the 5 most recently changed files/dirs
