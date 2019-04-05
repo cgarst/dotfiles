@@ -1,4 +1,5 @@
 #!/bin/bash
+# Print UDIDs provisioned for an iOS IPA file
 
 file=$1
 unzip -c $file Payload/*.app/embedded.mobileprovision | grep -a -A20 ProvisionedDevices

@@ -1,2 +1,4 @@
 #!/bin/bash
+# Print an XML file nicely
+
 xmllint $@ --format -

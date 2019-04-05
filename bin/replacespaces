@@ -1,2 +1,4 @@
 #!/bin/bash
+# Replace filename spaces with underscores for files in pwd
+
 for f in *\ *; do mv "$f" "${f// /_}"; done

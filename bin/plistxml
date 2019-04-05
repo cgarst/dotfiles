@@ -1,2 +1,4 @@
 #!/bin/bash
+# Print plist out like an XML file
+
 plutil -convert xml1 -o - $1

@@ -1,4 +1,6 @@
 #!/bin/bash
+# Print cert info from all APKs in directory recursively
+
 for i in `find . -type f -name \*.apk`
 do
   echo $i

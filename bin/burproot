@@ -1,2 +1,4 @@
 #!/bin/bash
+# Launch Burp Suite Free as root for binding to lower ports in invisible proxy mode
+
 sudo java -jar -Xmx2G /Applications/Burp\ Suite\ Free\ Edition.app/Contents/java/app/burpsuite_free.jar

@@ -1,4 +1,5 @@
 #!/bin/bash
+# Print the minimum OS version of an iOS IPA file
 
 targetipa=$1
 

@@ -1,2 +1,4 @@
 #!/bin/bash
+# Print strings from smali files in pwd
+
 grep -r "Ljava/lang/String; =" * | cut -d '"' -f 2
