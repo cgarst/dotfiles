@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo java -jar -Xmx2G /Applications/Burp\ Suite\ Free\ Edition.app/Contents/java/app/burpsuite_free.jar

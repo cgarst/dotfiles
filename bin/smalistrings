@@ -1,0 +1,2 @@
+#!/bin/bash
+grep -r "Ljava/lang/String; =" * | cut -d '"' -f 2

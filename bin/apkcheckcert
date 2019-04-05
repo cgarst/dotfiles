@@ -1,0 +1,11 @@
+#!/bin/bash
+for i in `find . -type f -name \*.apk`
+do
+  echo $i
+#  jarsigner -verify -certs -verbose $i | grep 'X.509' | sort -u | tr '"[^"]+"|(\,)' '\n' | grep -v 'X.509'
+#  jarsigner -verify -certs -verbose $i | grep 'X.509' | sort -u | tr , '\n' | grep -v 'X.509'
+  jarsigner -verify -certs -verbose $i | grep 'X.509' | sort -u 
+  echo ""
+done
+
+# regex, no comma in quote: egrep '"[^"]+"|(\,)'

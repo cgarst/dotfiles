@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Add dotfiles to local .profile
+grep -qxF 'source ~/code/dotfiles/.aliases' ~/.profile || echo 'source ~/code/dotfiles/.aliases' >> ~/.profile
+grep -qxF 'source ~/code/dotfiles/.ps1' ~/.profile || echo 'source ~/code/dotfiles/.ps1' >> ~/.profile
+
+# Add helper scripts to PATH
+grep -qxF 'PATH="$PATH:~/code/dotfiles/bin/"' ~/.profile || echo 'PATH="$PATH:~/code/dotfiles/bin/"' >> ~/.profile
+
+# Symlink things
+ln -s ~/code/dotfiles/.vimrc ~/.vimrc

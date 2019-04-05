@@ -1,0 +1,4 @@
+#!/bin/bash
+
+file=$1
+unzip -c $file Payload/*.app/embedded.mobileprovision | grep -a -A20 ProvisionedDevices
