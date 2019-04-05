@@ -27,3 +27,9 @@ alias dockersh="docker exec -it `docker ps | sed -n 2p | cut -f 1 -d ' '` /bin/b
 
 # pretty print a JSON file
 alias pprint="python -m json.tool"
+
+# open a mitmproxy stream file in CLI
+alias mitmread="mitmproxy --no-server -r"
+
+# open a mitmproxy stream file in web
+alias mitmreadweb="mitmweb --no-server -r"
