@@ -1,4 +1,5 @@
 # dotfiles
-The things that I use to do things.
+The things that I use to do things. Everyday aliases and bash scripts intended for macOS. Use at your own risk.
 
-`mkdir ~/code && cd ~/code && git clone git@github.com:cgarst/dotfiles.git && ~/code/dotfiles/bin/dotfilesetup`
+## Installation
+`mkdir -p ~/code && git clone git@github.com:cgarst/dotfiles.git ~/code/dotfiles && ~/code/dotfiles/bin/dotfilesetup`
