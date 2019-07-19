@@ -1,0 +1,5 @@
+#!/bin/bash
+
+file=$1
+
+xxd $file > $file.xxd
