@@ -1,0 +1,8 @@
+#!/bin/bash
+# Print the bundle ID of an iOS IPA file
+
+targetipa=$1
+
+bundleID=`unzip -p "$targetipa" Payload/*app/Info.plist | plistxml - | grep \<key\>CFBundleIdentifier -A1 | tail -n1 | sed -n 's:.*<string>\(.*\)</string>.*:\1:p'`
+
+echo $bundleID
