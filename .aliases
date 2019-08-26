@@ -22,9 +22,6 @@ alias tree="tree -a"
 # open pycharm on a file
 alias pyc='open -a /Applications/PyCharm\ CE.app'
 
-# run a shell in currently running docker container
-alias dockersh="docker exec -it `docker ps | sed -n 2p | cut -f 1 -d ' '` /bin/bash"
-
 # pretty print a JSON file
 alias pprint="python -m json.tool"
 
