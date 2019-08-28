@@ -1,0 +1,6 @@
+#!/bin/bash
+# Dump the signing cert from an enterprise IPA file
+
+app_file=$1
+
+unzip -c $app_file Payload/*.app/embedded.mobileprovision | grep -a -A2 DeveloperCertificates | tail -n1 | cut -d'>' -f2 | cut -d'<' -f1 | base64 -D > DeveloperCert.crt
