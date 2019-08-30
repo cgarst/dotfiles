@@ -8,7 +8,7 @@ grep -qxF 'source ~/code/dotfiles/.ps1' ~/.profile || echo 'source ~/code/dotfil
 grep -qxF 'PATH="$PATH:~/code/dotfiles/bin/"' ~/.profile || echo 'PATH="$PATH:~/code/dotfiles/bin/"' >> ~/.profile
 
 # Install/update axim vimrc
-if [ -d "~/.vim_runtime" ]; then
+if [ ! -d "~/.vim_runtime" ]; then
 	git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
 else
 	cd ~/.vim_runtime
