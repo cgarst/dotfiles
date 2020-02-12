@@ -1,5 +1,5 @@
 # dotfiles
-The things that I use to do things. Everyday aliases and bash scripts intended for macOS. Use at your own risk.
+The things that I use to do things. Everyday aliases and bash scripts intended for macOS and/or WSL. Use at your own risk.
 
 ## Installation
 SSH: 
