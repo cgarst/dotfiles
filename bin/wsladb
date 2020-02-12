@@ -1,0 +1,14 @@
+#!/bin/bash
+# Pretend we have regular adb inside of WSL with some translations to adb.exe from Android Studio on the Windows host
+# Use APKs from any Linux file path, symlinks, etc
+# Intended to be used with an 'adb' symlink to this in /usr/local/bin/
+
+win_userprofile="$(cmd.exe /c "<nul set /p=%LocalAppData%" 2>/dev/null)"
+adb_path=`wslpath -a "$win_userprofile\Android\Sdk\platform-tools\adb.exe"`
+if [ $1 = "install" ]
+then
+  apk_path=`realpath $2`
+  $adb_path install `wslpath -w $apk_path`
+else
+  $adb_path $@
+fi

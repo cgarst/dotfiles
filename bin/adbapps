@@ -1,0 +1,4 @@
+#!/bin/bash
+# List and paths of user apps installed on the ADB device
+
+adb shell 'pm list packages -f' | grep -v '/system/' | sort
