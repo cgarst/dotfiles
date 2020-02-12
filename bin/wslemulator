@@ -1,0 +1,7 @@
+#!/bin/bash
+# Use Android Studio emulator from inside WSL
+
+cd /mnt/c/Temp/
+win_userprofile="$(cmd.exe /c "<nul set /p=%LocalAppData%" 2>/dev/null)"
+emulator_path=`wslpath -a "$win_userprofile\Android\Sdk\tools\emulator.exe"`
+$emulator_path $@
