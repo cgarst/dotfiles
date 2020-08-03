@@ -1,3 +1,10 @@
 #!/bin/bash
 # run a shell in currently running docker container
-docker exec -it $(docker ps | sed -n 2p | cut -f 1 -d ' ') /bin/bash
+container=$(docker ps | sed -n 2p | cut -f 1 -d ' ')
+if [ $# -eq 0 ]; then
+  docker exec -it $container /bin/bash
+else
+  cmd="${@}"
+  docker exec -it $container /bin/bash -c "$cmd"
+fi
+
