@@ -1,0 +1,2 @@
+#!/bin/bash
+otool -arch arm64 -l $1 | grep cryptid
