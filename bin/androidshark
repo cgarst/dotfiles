@@ -1,0 +1,5 @@
+#!/bin/bash
+# Launches live Wireshark packet capture of an Android device running a rooted SSHd
+mkfifo /tmp/fifo 2>/dev/null
+wireshark -k -i /tmp/fifo &
+ssh android "tcpdump -i wlan0 port not 2222 -U -w -" > /tmp/fifo;
