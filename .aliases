@@ -16,8 +16,8 @@ alias cdf="eval \"cd \\\"\\\`osascript -e 'tell app \\\\\\\"Finder\\\\\\\" to re
 # open Hex Field on a file
 alias hex="open -a \"Hex Fiend\""
 
-# show all files in tree by default
-alias tree="tree -a"
+# show all files w/ color in tree by default
+alias tree="tree -aC"
 
 # open pycharm on a file
 alias pyc='open -a /Applications/PyCharm\ CE.app'
