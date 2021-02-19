@@ -8,10 +8,12 @@ arg=$1
 if [[ $arg == adb ]]; then
     comm='adb shell'
     pull='adb pull '
+    all_syntax='.'
     adb root
 else
     comm='ssh root@android'
     pull='scp -r root@android:'
+    all_syntax='*'
 fi
 
 # List installed third party packages
@@ -35,7 +37,7 @@ $pull$remote_apk_path $package_name-$package_version/$package_name-$package_vers
 # Copy app files from remote
 echo "Pulling /data/user/0/$package_name/ files..."
 mkdir -p $package_name-$package_version/files/
-$pull/data/user/0/$package_name/. $package_name-$package_version/files/
+$pull/data/user/0/$package_name/$all_syntax $package_name-$package_version/files/
 
 # Get app UID from remote
 app_uid=$($comm stat -c '%U' /data/user/0/$package_name/ | cut -d'a' -f2)
