@@ -1,0 +1,30 @@
+#!/bin/bash
+# Pull all files associated with an app from a jailbroken iOS device with Darwin CC Tools installed
+# Run with app open to ensure data protection doesn't block file access
+# Tested on iOS 14.4
+
+DEVICE='ipad'
+
+# Get list of installed apps
+ssh $DEVICE ls -d /var/containers/Bundle/Application/*/*.app
+
+# Get information about requested app
+read -p "Enter the bundle path: " BUNDLEDIR
+BUNDLENAME=$(basename $BUNDLEDIR)
+BUNDLEVER=$(ssh $DEVICE grep -A1 CFBundleShortVersionString $BUNDLEDIR/Info.plist | tail -n1 | cut -d '>' -f2 | cut -d '<' -f1)
+BUNDLEUDID=$(echo $BUNDLEDIR | rev | cut -d'/' -f2 | rev)
+CONTAINERDIR=$(ssh $DEVICE strings /var/mobile/Library/FrontBoard/applicationState.db | grep -A1 $BUNDLEUDID | grep Containers | cut -c2- | rev | cut -c2- | rev)
+
+# Setup local files
+LOCAL="$BUNDLENAME-$BUNDLEVER"
+mkdir -p $LOCAL/extract/
+mkdir -p $LOCAL/files/
+
+# Get bundle files
+scp -r $DEVICE:$BUNDLEDIR/../* $LOCAL/extract/
+
+# Get container files
+scp -r $DEVICE:$CONTAINERDIR/* $LOCAL/files/
+
+# Get AppGroup files
+# TODO - /var/mobile/Containers/Shared/AppGroup/
