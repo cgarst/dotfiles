@@ -1,0 +1,1 @@
+PROMPT='%F{green}%n%F{blue}[%~]%f$ '

@@ -1,11 +1,14 @@
 #!/bin/bash
 
-# Add dotfiles to local .profile
+# Add dotfiles to local bash .profile
 grep -qxF 'source ~/code/dotfiles/.aliases' ~/.profile || echo 'source ~/code/dotfiles/.aliases' >> ~/.profile
 grep -qxF 'source ~/code/dotfiles/.ps1' ~/.profile || echo 'source ~/code/dotfiles/.ps1' >> ~/.profile
-
-# Add helper scripts to PATH
 grep -qxF 'PATH="$PATH:~/code/dotfiles/bin/"' ~/.profile || echo 'PATH="$PATH:~/code/dotfiles/bin/"' >> ~/.profile
+
+# Add the same for zsh 
+grep -qxF 'source ~/code/dotfiles/.aliases' ~/.zshrc || echo 'source ~/code/dotfiles/.aliases' >> ~/.zshrc
+grep -qxF 'source ~/code/dotfiles/.zshprompt' ~/.zshrc || echo 'source ~/code/dotfiles/.zshprompt' >> ~/.zshrc
+grep -qxF 'PATH="$PATH:~/code/dotfiles/bin/"' ~/.zshrc || echo 'PATH="$PATH:  ~/code/dotfiles/bin/"' >> ~/.zshrc
 
 # Install/update axim vimrc
 if [ ! -d "~/.vim_runtime" ]; then
