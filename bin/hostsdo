@@ -1,0 +1,24 @@
+#!/bin/bash
+# Takes a list of hosts as a file and performs an action on all of them
+# Example: ./hostsdo hosts.txt ping -c1
+
+# Input arguments
+INFILE=$1
+CMD=${@:2}
+
+# CTRL-C gracefully
+trap "exit 0" SIGINT SIGTERM
+
+# Parse the input list
+while read LINE; do
+  # Strip newline
+  host=`echo -n $LINE | tr -d '\r'`
+  # Validate host is resolvable
+  if nslookup $host &> /dev/null; then
+    echo 
+    echo ----------------------------
+    echo $host
+    # Perform command
+    $CMD "$host"
+  fi
+done <$INFILE
