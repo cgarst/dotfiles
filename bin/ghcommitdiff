@@ -1,0 +1,11 @@
+#!/bin/bash
+# Usage: ghcommitdiff https://github.com/cgarst/dotfiles 756903a eaba4ff 
+
+URL="$1"
+COMMIT1=$2
+COMMIT2=$3
+
+DEST="$URL/compare/$COMMIT1..$COMMIT2"
+
+echo $DEST
+open $DEST
