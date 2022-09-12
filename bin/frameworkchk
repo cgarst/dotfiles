@@ -1,0 +1,35 @@
+#!/bin/bash
+# Identify missing compilation flags in iOS package framework binaries
+
+count_total=0
+count_smash=0
+count_pie=0
+
+for d in *.framework/ ; do
+    filename=$(echo "$d" | cut -d'.' -f1)
+    echo "*** $filename ***"
+
+    smash_check=$(otool -Iv "$filename.framework/$filename" | grep stack_chk_fail)
+    if [[ $smash_check != *"stack_chk_fail"* ]]; then
+        echo "[✗] Stack smashing flag missing (stack_chk_fail). Reproduce with: otool -Iv \"$filename.framework/$filename\" | grep stack_chk_fail"
+        let "count_smash+=1"
+    else 
+        echo "[✓] Has stack smashing flag (stack_chk_fail)."
+    fi
+
+    pie_check=$(otool -hv "$filename.framework/$filename")
+    if [[ $pie_check != *"PIE"* ]]; then
+        echo "[✗] ASLR flag missing (PIE). Reproduce with: otool -hv \"$filename.framework/$filename\""
+        let "count_pie+=1"
+    else
+        echo "[✓] Has ASLR flag (PIE)."
+    fi
+
+    let "count_total+=1"
+
+    echo ""
+done
+
+echo "Total frameworks: $count_total"
+echo "Total missing smash stashing flag: $count_smash"
+echo "Total missing ASLR flag: $count_pie"
