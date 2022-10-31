@@ -1,4 +1,6 @@
 #!/bin/bash
+# Print certificate data for a website
+# Usage: tlscheck www.google.com
 
 TARGET="$1"
 
