@@ -1,4 +1,5 @@
 #!/bin/bash
+# Print a file where each line is a list item for copy pasta into Python
 echo -n \[
 while IFS= read -r line; do
   echo -n \"

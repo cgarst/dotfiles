@@ -1,2 +1,3 @@
 #!/bin/bash
+# Show the cryptid value of an iOS binary to indicate if it's DRM encrypted when non-zero
 otool -arch arm64 -l $1 | grep cryptid

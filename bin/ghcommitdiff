@@ -1,4 +1,5 @@
 #!/bin/bash
+# Open GitHub's diff UI between two pushed commits
 # Usage: ghcommitdiff https://github.com/cgarst/dotfiles 756903a eaba4ff 
 
 URL="$1"
