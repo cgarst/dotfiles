@@ -1,5 +1,6 @@
 #!/bin/bash
 # Identify missing compilation flags in iOS package framework binaries
+# Unzip the IPA and run from the Payload/*.app/Frameworks directory
 
 count_total=0
 count_smash=0
@@ -11,7 +12,7 @@ for d in *.framework/ ; do
 
     smash_check=$(otool -Iv "$filename.framework/$filename" | grep stack_chk_fail)
     if [[ $smash_check != *"stack_chk_fail"* ]]; then
-        echo "[✗] Stack smashing flag missing (stack_chk_fail). Reproduce with: otool -Iv \"$filename.framework/$filename\" | grep stack_chk_fail"
+        echo "[✗] Stack smashing flag missing (stack_chk_fail). This is unncessary on frameworks written in Swift. Reproduce with: otool -Iv \"$filename.framework/$filename\" | grep stack_chk_fail"
         let "count_smash+=1"
     else 
         echo "[✓] Has stack smashing flag (stack_chk_fail)."
@@ -19,10 +20,18 @@ for d in *.framework/ ; do
 
     pie_check=$(otool -hv "$filename.framework/$filename")
     if [[ $pie_check != *"PIE"* ]]; then
-        echo "[✗] ASLR flag missing (PIE). Reproduce with: otool -hv \"$filename.framework/$filename\""
+        echo "[✗] ASLR flag missing (PIE). This is unncessary on all frameworks. Reproduce with: otool -hv \"$filename.framework/$filename\""
         let "count_pie+=1"
     else
         echo "[✓] Has ASLR flag (PIE)."
+    fi
+
+    arc_check=$(otool -I -v "$filename.framework/$filename" | grep _objc_release)
+    if [[ $arc_check != *"_objc_release"* ]]; then
+        echo "[✗] Automatic Reference Counting flag missing (ARC). This is recommended on all frameworks. Reproduce with: otool -I -v \"$filename.framework/$filename\" | grep _objc_release"
+        let "count_arc+=1"
+    else
+        echo "[✓] Has ARC flag."
     fi
 
     let "count_total+=1"
@@ -33,3 +42,4 @@ done
 echo "Total frameworks: $count_total"
 echo "Total missing smash stashing flag: $count_smash"
 echo "Total missing ASLR flag: $count_pie"
+echo "Total missing ARC flag: $count_arc"
