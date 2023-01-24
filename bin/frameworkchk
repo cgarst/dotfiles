@@ -12,26 +12,26 @@ for d in *.framework/ ; do
 
     smash_check=$(otool -Iv "$filename.framework/$filename" | grep stack_chk_fail)
     if [[ $smash_check != *"stack_chk_fail"* ]]; then
-        echo "[✗] Stack smashing flag missing (stack_chk_fail). This is unncessary on frameworks written in Swift. Reproduce with: otool -Iv \"$filename.framework/$filename\" | grep stack_chk_fail"
+        echo "[✗] Stack smashing flag missing (stack_chk_fail). This is not necessary on frameworks written in Swift. Reproduce with: otool -Iv \"$filename.framework/$filename\" | grep stack_chk_fail"
         let "count_smash+=1"
     else 
-        echo "[✓] Has stack smashing flag (stack_chk_fail)."
+        echo "[✓] Has stack smashing protection (stack_chk_fail)."
     fi
 
     pie_check=$(otool -hv "$filename.framework/$filename")
     if [[ $pie_check != *"PIE"* ]]; then
-        echo "[✗] ASLR flag missing (PIE). This is unncessary on all frameworks. Reproduce with: otool -hv \"$filename.framework/$filename\""
+        echo "[✗] ASLR flag missing (PIE). This is not necessary on frameworks. Reproduce with: otool -hv \"$filename.framework/$filename\""
         let "count_pie+=1"
     else
-        echo "[✓] Has ASLR flag (PIE)."
+        echo "[✓] Has ASLR (PIE)."
     fi
 
-    arc_check=$(otool -I -v "$filename.framework/$filename" | grep _objc_release)
-    if [[ $arc_check != *"_objc_release"* ]]; then
-        echo "[✗] Automatic Reference Counting flag missing (ARC). This is recommended on all frameworks. Reproduce with: otool -I -v \"$filename.framework/$filename\" | grep _objc_release"
+    arc_check=$(otool -I -v "$filename.framework/$filename" | grep _release)
+    if [[ $arc_check != *"_release"* ]]; then
+        echo "[✗] Automatic Reference Counting flag missing (ARC). This is recommended on all ObjC and Swift frameworks, but not native C/C++. Reproduce with: otool -I -v \"$filename.framework/$filename\" | grep _release"
         let "count_arc+=1"
     else
-        echo "[✓] Has ARC flag."
+        echo "[✓] Has ARC."
     fi
 
     let "count_total+=1"
