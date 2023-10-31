@@ -1,0 +1,14 @@
+#!/bin/bash
+# iostcpdump
+# Sets up remote iOS device to stream tcpdump and launches wireshark
+
+device="192.168.1.187"
+
+# fifo method
+'''
+mkfifo /tmp/fifo 2>/dev/null
+/Applications/Wireshark.app/Contents/MacOS/Wireshark -k -i /tmp/fifo &
+ssh root@$device "tcpdump -i en0 port not 22 -U -w -" > /tmp/fifo;
+'''
+
+# file method
